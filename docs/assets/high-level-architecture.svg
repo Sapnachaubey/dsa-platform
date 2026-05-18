@@ -1,0 +1,65 @@
+<svg width="960" height="430" viewBox="0 0 960 430" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">High Level Architecture</title>
+  <desc id="desc">Student browser connects to Nginx, which serves the React app and forwards API requests to Express. Express uses auth middleware, progress logic, and MongoDB.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb" />
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+      .primary { fill: #eff6ff; stroke: #2563eb; }
+      .db { fill: #f0fdf4; stroke: #16a34a; }
+      .label { fill: #0f172a; font: 600 18px Arial, sans-serif; }
+      .sub { fill: #475569; font: 14px Arial, sans-serif; }
+      .line { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrow); }
+      .caption { fill: #334155; font: 13px Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect x="24" y="24" width="912" height="382" rx="26" fill="#f8fafc" stroke="#e2e8f0" />
+  <text x="48" y="62" class="label">High Level Architecture</text>
+  <text x="48" y="86" class="sub">React frontend, Express API, and MongoDB deployed behind Nginx.</text>
+
+  <rect x="56" y="165" width="150" height="84" class="box primary" />
+  <text x="91" y="198" class="label">Student</text>
+  <text x="84" y="222" class="sub">Browser</text>
+
+  <rect x="278" y="124" width="156" height="84" class="box primary" />
+  <text x="329" y="157" class="label">Nginx</text>
+  <text x="303" y="181" class="sub">Web server</text>
+
+  <rect x="278" y="255" width="156" height="84" class="box" />
+  <text x="321" y="288" class="label">React</text>
+  <text x="305" y="312" class="sub">Single page app</text>
+
+  <rect x="520" y="124" width="156" height="84" class="box primary" />
+  <text x="560" y="157" class="label">Express</text>
+  <text x="552" y="181" class="sub">API server</text>
+
+  <rect x="742" y="68" width="150" height="76" class="box" />
+  <text x="783" y="99" class="label">Auth</text>
+  <text x="764" y="122" class="sub">Middleware</text>
+
+  <rect x="742" y="182" width="150" height="76" class="box" />
+  <text x="768" y="213" class="label">Progress</text>
+  <text x="771" y="236" class="sub">Update logic</text>
+
+  <rect x="742" y="296" width="150" height="76" class="box db" />
+  <text x="774" y="327" class="label">MongoDB</text>
+  <text x="771" y="350" class="sub">App data</text>
+
+  <line x1="206" y1="207" x2="278" y2="166" class="line" />
+  <text x="218" y="170" class="caption">HTTPS</text>
+
+  <line x1="356" y1="208" x2="356" y2="255" class="line" />
+  <text x="370" y="235" class="caption">static assets</text>
+
+  <line x1="434" y1="166" x2="520" y2="166" class="line" />
+  <text x="450" y="148" class="caption">/api</text>
+
+  <line x1="676" y1="154" x2="742" y2="115" class="line" />
+  <line x1="676" y1="179" x2="742" y2="214" class="line" />
+  <line x1="598" y1="208" x2="742" y2="322" class="line" />
+  <line x1="817" y1="258" x2="817" y2="296" class="line" />
+  <text x="628" y="274" class="caption">Mongoose queries</text>
+</svg>

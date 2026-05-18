@@ -1,0 +1,52 @@
+<svg width="960" height="430" viewBox="0 0 960 430" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Deployment View</title>
+  <desc id="desc">A student reaches Nginx on an AWS EC2 instance. Nginx serves the React app and proxies API requests to Express, which connects to MongoDB.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb" />
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+      .primary { fill: #eff6ff; stroke: #2563eb; }
+      .db { fill: #f0fdf4; stroke: #16a34a; }
+      .boundary { fill: #f8fafc; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 10 8; }
+      .label { fill: #0f172a; font: 600 18px Arial, sans-serif; }
+      .sub { fill: #475569; font: 14px Arial, sans-serif; }
+      .line { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrow); }
+      .caption { fill: #334155; font: 13px Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect x="24" y="24" width="912" height="382" rx="26" fill="#ffffff" stroke="#e2e8f0" />
+  <text x="48" y="62" class="label">Deployment View</text>
+  <text x="48" y="86" class="sub">Docker Compose runs the web, API, and database containers on one EC2 instance.</text>
+
+  <rect x="56" y="180" width="148" height="80" class="box primary" />
+  <text x="103" y="212" class="label">Student</text>
+  <text x="94" y="235" class="sub">Browser</text>
+
+  <rect x="285" y="116" width="594" height="218" rx="24" class="boundary" />
+  <text x="313" y="151" class="label">AWS EC2 Instance</text>
+  <text x="313" y="174" class="sub">Docker Compose network</text>
+
+  <rect x="333" y="210" width="150" height="78" class="box primary" />
+  <text x="381" y="241" class="label">Nginx</text>
+  <text x="365" y="264" class="sub">Web container</text>
+
+  <rect x="530" y="210" width="150" height="78" class="box" />
+  <text x="568" y="241" class="label">Express</text>
+  <text x="558" y="264" class="sub">API container</text>
+
+  <rect x="727" y="210" width="150" height="78" class="box db" />
+  <text x="759" y="241" class="label">MongoDB</text>
+  <text x="750" y="264" class="sub">Volume-backed</text>
+
+  <line x1="204" y1="220" x2="333" y2="249" class="line" />
+  <text x="222" y="206" class="caption">HTTP or HTTPS</text>
+
+  <line x1="483" y1="249" x2="530" y2="249" class="line" />
+  <text x="493" y="234" class="caption">/api</text>
+
+  <line x1="680" y1="249" x2="727" y2="249" class="line" />
+  <text x="690" y="234" class="caption">Mongo URI</text>
+</svg>

@@ -8,16 +8,16 @@ The design assumes 10k-50k active users with moderate read traffic and frequent 
 
 ## High Level Architecture
 
-```mermaid
-flowchart LR
-  Student[Student Browser] -->|"HTTPS React App"| Web[Nginx Web Server]
-  Web -->|"Static Assets"| ReactApp[React SPA]
-  Web -->|"/api requests"| Api[Express API]
-  Api -->|"JWT Cookie Auth"| Auth[Auth Middleware]
-  Api -->|"Mongoose Queries"| Mongo[(MongoDB)]
-  Api --> Progress[Progress Service]
-  Progress --> Mongo
-```
+The application is split into a React client, an Express API, and MongoDB. Nginx serves the production frontend build and forwards API traffic to the backend.
+
+![High level architecture](assets/high-level-architecture.svg)
+
+### Component Responsibilities
+
+- React handles routing, authentication screens, dashboard rendering, sheet browsing, filters, and optimistic progress updates.
+- Express owns authentication, request validation, topic/problem APIs, progress updates, and error handling.
+- MongoDB stores users, seeded DSA content, and per-user progress records.
+- Nginx serves static assets and reverse-proxies `/api` requests to the backend container.
 
 ## Request Flow
 
@@ -41,20 +41,11 @@ This keeps the frontend from manually storing sensitive tokens in local storage.
 
 ## Progress Tracking Data Flow
 
-```mermaid
-sequenceDiagram
-  participant Browser as React Client
-  participant Api as Express API
-  participant Db as MongoDB
+Progress is saved per user and per problem. The frontend updates the local UI after the API confirms that MongoDB has stored the change.
 
-  Browser->>Api: PUT /api/progress/:problemId
-  Api->>Api: Validate JWT and problem id
-  Api->>Db: Find problem
-  Api->>Db: Upsert UserProgress(userId, problemId)
-  Db-->>Api: Saved progress
-  Api-->>Browser: Updated progress record
-  Browser->>Browser: Update checkbox and topic percentage
-```
+![Progress tracking data flow](assets/progress-tracking-flow.svg)
+
+This flow keeps progress isolated by authenticated user, so two students can complete the same problem independently.
 
 ## Scalability Considerations
 
@@ -70,22 +61,13 @@ For 10k-50k active users:
 
 ## Deployment View
 
-```mermaid
-flowchart TB
-  subgraph ec2 [AWS EC2 Instance]
-    Nginx[Nginx Container]
-    Express[Express API Container]
-    MongoDb[(MongoDB Container Volume)]
-  end
+The current deployment target is a single EC2 instance running Docker Compose. This keeps the setup easy to review while still separating web, API, and database responsibilities.
 
-  User[Student] -->|"HTTP or HTTPS"| Nginx
-  Nginx -->|"/api"| Express
-  Express --> MongoDb
-```
+![Deployment view](assets/deployment-view.svg)
 
 ## Trade-offs
 
-- Docker Compose on EC2 keeps the deployment simple for the requested 1-3 day delivery window.
+- Docker Compose on EC2 keeps deployment straightforward and easy to reproduce.
 - Managed MongoDB would be better for production reliability, but local MongoDB keeps the deployment simple.
 - Cookie-based JWT improves browser security compared with local storage.
 - Topic/problem content is seeded from code for repeatability; an admin panel can be added later if content must be edited frequently.
